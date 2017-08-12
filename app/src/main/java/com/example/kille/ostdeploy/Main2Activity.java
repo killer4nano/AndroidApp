@@ -57,7 +57,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("TEST");
+        getSupportActionBar().setTitle("Tasks");
         FirebaseMessaging.getInstance().subscribeToTopic("tasks");
         setContentView(R.layout.activity_main2);
         act = this;
