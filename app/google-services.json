@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1060745328003",
+    "firebase_url": "https://ostdeployapp.firebaseio.com",
+    "project_id": "ostdeployapp",
+    "storage_bucket": "ostdeployapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060745328003:android:ed0c73a2d26a0d31",
+        "android_client_info": {
+          "package_name": "com.example.kille.ostdeploy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060745328003-lvs5ijmbu67uavdjtitmn0hdpcrejhha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZe5V69aFpGI0ouWpUhQx3LP6Gr9xSib0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

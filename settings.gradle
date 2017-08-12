@@ -1,0 +1,1 @@
+include ':app', ':jtds-1.2.1', ':ojdbc6', ':mysql-connector-java-6.0.6'
