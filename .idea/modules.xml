@@ -5,7 +5,10 @@
       <module fileurl="file://$PROJECT_DIR$/OSTDeploy.iml" filepath="$PROJECT_DIR$/OSTDeploy.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/jtds-1.2.1/jtds-1.2.1.iml" filepath="$PROJECT_DIR$/jtds-1.2.1/jtds-1.2.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jtds-1.2.1/jtds-1.2.1.iml" filepath="$PROJECT_DIR$/jtds-1.2.1/jtds-1.2.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/mysql-connector-java-6.0.6/mysql-connector-java-6.0.6.iml" filepath="$PROJECT_DIR$/mysql-connector-java-6.0.6/mysql-connector-java-6.0.6.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mysql-connector-java-6.0.6/mysql-connector-java-6.0.6.iml" filepath="$PROJECT_DIR$/mysql-connector-java-6.0.6/mysql-connector-java-6.0.6.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ojdbc6/ojdbc6.iml" filepath="$PROJECT_DIR$/ojdbc6/ojdbc6.iml" />
       <module fileurl="file://$PROJECT_DIR$/ojdbc6/ojdbc6.iml" filepath="$PROJECT_DIR$/ojdbc6/ojdbc6.iml" />
     </modules>
   </component>
