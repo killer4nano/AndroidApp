@@ -23,9 +23,7 @@ import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.google.firebase.messaging.FirebaseMessaging;
-
 import java.util.ArrayList;
 
 public class Main2Activity extends AppCompatActivity {
@@ -58,6 +56,7 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle("Tasks");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         FirebaseMessaging.getInstance().subscribeToTopic("tasks");
         setContentView(R.layout.activity_main2);
         act = this;
