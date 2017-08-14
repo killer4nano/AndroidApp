@@ -85,7 +85,6 @@ public class Main2Activity extends AppCompatActivity {
         taskView.setAdapter(taskAdapter);
 
         tasksUpdater = new TasksUpdater(this);
-        //tasksUpdater.start();
 
         clientName = "super";
 
