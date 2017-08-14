@@ -9,6 +9,7 @@ public class Transfer {
 
     static ServerCommunication serverCommunication;
     private static String client = "";
+    private static int id;
 
     public static void setServerCom(ServerCommunication conn) {
         serverCommunication = conn;
@@ -20,6 +21,14 @@ public class Transfer {
 
     public static String getName() {
         return client;
+    }
+
+    public static int getId() {
+        return id;
+    }
+
+    public static void setId(int i) {
+        id = i;
     }
 
     public static ServerCommunication getConnection() {

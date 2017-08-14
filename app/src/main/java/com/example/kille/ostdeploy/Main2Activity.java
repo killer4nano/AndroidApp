@@ -127,7 +127,8 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
         findViewById(R.id.jobButton).setBackgroundColor(Color.parseColor("#03FF13"));
-        serverCommunication = Transfer.getConnection();
+        serverCommunication = new ServerCommunication();
+        Transfer.setServerCom(serverCommunication);
         serverCommunication.setAct(this);
         if (serverCommunication.isOnJob()) {
             setButtonColor("ffffbb33");

@@ -34,21 +34,22 @@ public class MainActivity extends AppCompatActivity {
         if (ServerCommunication.isLoggedIn()) {
             startActivity(new Intent(MainActivity.this, Main2Activity.class));
         }
-        serverCommunication = new ServerCommunication();
-        Transfer.setServerCom(serverCommunication);
+
     }
 
 
     public void login(View v) {
         String usernameS = username.getText().toString();
         String passwordS = password.getText().toString();
-
-        if (ServerCommunication.login(usernameS,passwordS)) {
-            startActivity(new Intent(MainActivity.this, Main2Activity.class));
-            serverCommunication.setLoggedIn(true);
-            Transfer.setClient(usernameS);
-        } else {
-            showMessage("Wrong password or username!");
+        try {
+            if (ServerCommunication.login(usernameS, passwordS)) {
+                startActivity(new Intent(MainActivity.this, Main2Activity.class));
+                Transfer.setClient(usernameS);
+            } else {
+                showMessage("Wrong password or username!");
+            }
+        }catch (Exception e) {
+            showMessage("Some stupid error! try again!");
         }
 
     }

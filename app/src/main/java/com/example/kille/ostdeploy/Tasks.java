@@ -12,17 +12,24 @@ public class Tasks {
     private String tech;
     private String notes;
     private boolean completed;
+    private int id;
     private boolean sos = false;
 
     public Tasks (String taskName, String taskDescription) {
         name = taskName;
+        this.id = id;
         description = taskDescription;
         tech = "none";
         completed = false;
         notes = "";
     }
 
-    public Tasks(boolean isSos,String name,String tech,boolean completed, String description,String notes) {
+    public int getId() {
+        return id;
+    }
+
+    public Tasks(int id,boolean isSos,String name,String tech,boolean completed, String description,String notes) {
+        this.id = id;
         this.sos = isSos;
         this.name = name;
         this.tech = tech;

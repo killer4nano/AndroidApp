@@ -28,11 +28,11 @@ public class ServerCommunication {
 
     public ServerCommunication() {
         try {
-            InetAddress addr = InetAddress.getByName(computerName+".humber.org");
-            ipAddr = addr.getHostAddress();
+            InetAddress test = InetAddress.getByName(computerName+".humber.org");
+            ipAddr = test.getHostAddress();
             name = Transfer.getName();
         } catch (Exception e) {
-            Log.e("debug", e.getMessage());
+            Log.e("TEST", e.getMessage());
         }
     }
 
@@ -42,6 +42,7 @@ public class ServerCommunication {
     }
 
     public void updateTasks() {
+        getMyTask();
         getSosTasks();
         getAvailableTasks();
         act.addToList();
@@ -58,7 +59,7 @@ public class ServerCommunication {
 
     public void sosTask(String notes) {
         try {
-            URL url = new URL("http://"+ipAddr+":8080/sos/"+currentTask.getTaskName()+"/"+currentTask.getTaskDescription()+"/"+notes);
+            URL url = new URL("http://"+ipAddr+":8080/sos/"+currentTask.getId()+"/"+currentTask.getTaskName()+"/"+currentTask.getTaskDescription()+"/"+notes);
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
@@ -140,7 +141,78 @@ public class ServerCommunication {
                     }else {
                         completed = false;
                     }
-                    TasksUpdater.getTasks().add(i,new Tasks(sos,jObject.get("taskName").toString(),jObject.get("tech").toString(),completed,jObject.get("taskDescription").toString(),jObject.get("notes").toString()));
+                    TasksUpdater.getTasks().add(i,new Tasks(Integer.parseInt(jObject.get("id").toString()),sos,jObject.get("taskName").toString(),jObject.get("tech").toString(),completed,jObject.get("taskDescription").toString(),jObject.get("notes").toString()));
+                }
+            }
+        }catch(Exception e) {
+            getAvailableTasks();
+            Log.e("TEST",e.getMessage());
+        }
+    }
+
+    public void isSos(int id) {
+        try {
+            URL url = new URL("http://"+ipAddr+":8080/issos/"+id);
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+            int responseCode = conn.getResponseCode();
+            if(responseCode != 200) {
+                Log.e("TEST","CODE: "+responseCode);
+            }else {
+                Scanner sc = new Scanner(conn.getInputStream());
+                String inLine = "";
+                while (sc.hasNext()) {
+                    inLine += sc.nextLine();
+                }
+                Log.e("TEST",inLine);
+                if (inLine.contains("yes")) {
+                    currentTask.setSos(true);
+                }
+            }
+        }catch(Exception e) {
+            Log.e("TEST",e.getMessage());
+        }
+    }
+
+    public void getMyTask() {
+        try {
+            URL url = new URL("http://"+ipAddr+":8080/mytask/"+Transfer.getId());
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+            int responseCode = conn.getResponseCode();
+            if(responseCode != 200) {
+                Log.e("TEST","CODE: "+responseCode);
+                getAvailableTasks();
+            }else {
+                Scanner sc = new Scanner(conn.getInputStream());
+                String inLine = "";
+                while(sc.hasNext()) {
+                    inLine += sc.nextLine();
+                }
+
+                if (inLine.contains("{")) {
+                    JSONObject jObject = new JSONObject(inLine);
+                    String isSos = jObject.get("sos").toString();
+                    String completedS = jObject.get("itCompleted").toString();
+
+                    boolean sos;
+                    boolean completed;
+                    if (isSos.equals("true")) {
+                        sos = true;
+                    } else {
+                        sos = false;
+                    }
+                    if (completedS.equals("true")) {
+                        completed = true;
+                    } else {
+                        completed = false;
+                    }
+                    currentTask = new Tasks(Integer.parseInt(jObject.get("id").toString()), sos, jObject.get("taskName").toString(), jObject.get("tech").toString(), completed, jObject.get("taskDescription").toString(), jObject.get("notes").toString());
+                    onJob = true;
+                    isSos(currentTask.getId());
+
                 }
             }
         }catch(Exception e) {
@@ -156,7 +228,7 @@ public class ServerCommunication {
 
     public void acceptTask(Tasks acceptedTask) {
         try {
-            URL url = new URL("http://"+ipAddr+":8080/accept/"+name+"/"+acceptedTask.getTaskName());
+            URL url = new URL("http://"+ipAddr+":8080/accept/"+Transfer.getId()+"/"+name+"/"+acceptedTask.getTaskName());
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
@@ -183,9 +255,11 @@ public class ServerCommunication {
         }
 
     }
-    public static boolean login(String username, String password) {
+    public static boolean login(String username, String password) throws Exception{
+        InetAddress another = InetAddress.getByName("DESKTOP-43VDM4D.humber.org");
+        String ip = another.getHostAddress();
         try {
-            URL url = new URL("http://"+ipAddr+":8080/login/"+username+"/"+password);
+            URL url = new URL("http://"+ip+":8080/login/"+username+"/"+password);
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
@@ -199,7 +273,9 @@ public class ServerCommunication {
             while(sc.hasNext()) {
                 inLine += sc.nextLine();
             }
-            if(inLine.contains("done")) {
+            if(!inLine.contains("0")) {
+                Transfer.setId(Integer.parseInt(inLine));
+                Log.e("TEST",""+Transfer.getId());
                return true;
             }else {
                 return false;
@@ -217,9 +293,14 @@ public class ServerCommunication {
     public static boolean isLoggedIn() {
         return loggedIn;
     }
+
     public void finishJob(String notes) {
+
+        if(currentTask.getSos()) {
+            turnOffSos();
+        }
         try {
-            URL url = new URL("http://"+ipAddr+":8080/finish/"+name+"/" + currentTask.getTaskName()+"/"+notes);
+            URL url = new URL("http://"+ipAddr+":8080/finish/"+Transfer.getId()+"/"+currentTask.getId()+"/"+ currentTask.getTaskName()+"/"+currentTask.getTaskDescription()+"/"+notes);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
@@ -241,7 +322,7 @@ public class ServerCommunication {
 
     public void turnOffSos() {
         try {
-            URL url = new URL("http://"+ipAddr+":8080/nosos/" + currentTask.getTaskName());
+            URL url = new URL("http://"+ipAddr+":8080/nosos/"+currentTask.getId()+"/" + currentTask.getTaskName());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
