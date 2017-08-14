@@ -165,7 +165,6 @@ public class ServerCommunication {
                 while (sc.hasNext()) {
                     inLine += sc.nextLine();
                 }
-                Log.e("TEST",inLine);
                 if (inLine.contains("yes")) {
                     currentTask.setSos(true);
                 }
@@ -275,7 +274,6 @@ public class ServerCommunication {
             }
             if(!inLine.contains("0")) {
                 Transfer.setId(Integer.parseInt(inLine));
-                Log.e("TEST",""+Transfer.getId());
                return true;
             }else {
                 return false;
