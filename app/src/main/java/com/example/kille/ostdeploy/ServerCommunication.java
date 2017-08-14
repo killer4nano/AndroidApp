@@ -23,14 +23,14 @@ public class ServerCommunication {
     private static Tasks currentTask = null;
     private static Main2Activity act;
     private static String accepted = null;
+    private static String name = "";
     private static boolean loggedIn = false;
 
     public ServerCommunication() {
         try {
             InetAddress addr = InetAddress.getByName(computerName+".humber.org");
             ipAddr = addr.getHostAddress();
-            String message;
-            loggedIn = true;
+            name = Transfer.getName();
         } catch (Exception e) {
             Log.e("debug", e.getMessage());
         }
@@ -45,6 +45,10 @@ public class ServerCommunication {
         getSosTasks();
         getAvailableTasks();
         act.addToList();
+    }
+
+    public void setLoggedIn(boolean tof) {
+        loggedIn = tof;
     }
 
 
@@ -152,7 +156,7 @@ public class ServerCommunication {
 
     public void acceptTask(Tasks acceptedTask) {
         try {
-            URL url = new URL("http://"+ipAddr+":8080/accept/"+Transfer.getName()+"/"+acceptedTask.getTaskName());
+            URL url = new URL("http://"+ipAddr+":8080/accept/"+name+"/"+acceptedTask.getTaskName());
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
@@ -215,7 +219,7 @@ public class ServerCommunication {
     }
     public void finishJob(String notes) {
         try {
-            URL url = new URL("http://"+ipAddr+":8080/finish/"+Transfer.getName()+"/" + currentTask.getTaskName()+"/"+notes);
+            URL url = new URL("http://"+ipAddr+":8080/finish/"+name+"/" + currentTask.getTaskName()+"/"+notes);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();

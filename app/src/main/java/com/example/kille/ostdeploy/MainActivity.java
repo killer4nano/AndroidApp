@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle("Login");
-        //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         setTitle("Login");
 
@@ -46,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (ServerCommunication.login(usernameS,passwordS)) {
             startActivity(new Intent(MainActivity.this, Main2Activity.class));
+            serverCommunication.setLoggedIn(true);
             Transfer.setClient(usernameS);
         } else {
             showMessage("Wrong password or username!");

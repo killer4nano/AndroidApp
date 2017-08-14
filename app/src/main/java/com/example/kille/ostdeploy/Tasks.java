@@ -65,7 +65,7 @@ public class Tasks {
     public boolean getSos() {
         return sos;
     }
-    
+
 }
 
 
