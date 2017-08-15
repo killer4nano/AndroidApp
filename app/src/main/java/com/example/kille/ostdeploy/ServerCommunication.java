@@ -183,7 +183,6 @@ public class ServerCommunication {
             int responseCode = conn.getResponseCode();
             if(responseCode != 200) {
                 Log.e("TEST","CODE: "+responseCode);
-                getAvailableTasks();
             }else {
                 Scanner sc = new Scanner(conn.getInputStream());
                 String inLine = "";
@@ -212,6 +211,9 @@ public class ServerCommunication {
                     onJob = true;
                     isSos(currentTask.getId());
 
+                }else {
+                    currentTask = null;
+                    onJob = false;
                 }
             }
         }catch(Exception e) {
