@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class ServerCommunication {
 
 
-    private static final String computerName = "DESKTOP-43VDM4D";
+    private static final String computerName = "NB-00314-CLSCAL";
     private static String ipAddr = "";
     private static boolean onJob = false;
     private static Tasks currentTask = null;
@@ -257,7 +257,7 @@ public class ServerCommunication {
 
     }
     public static boolean login(String username, String password) throws Exception{
-        InetAddress another = InetAddress.getByName("DESKTOP-43VDM4D.humber.org");
+        InetAddress another = InetAddress.getByName("NB-00314-CLSCAL.humber.org");
         String ip = another.getHostAddress();
         try {
             URL url = new URL("http://"+ip+":8080/login/"+username+"/"+password);
