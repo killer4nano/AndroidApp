@@ -12,7 +12,7 @@ public class PNHandler extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Transfer.getConnection().updateTasks();
-        if(!Transfer.getConnection().getAct().isVisible()) {
+        if(!Transfer.getConnection().getAct().isVisible() && !Transfer.getConnection().isOnJob()) {
             Transfer.getConnection().getAct().showNotification();
         }
     }
