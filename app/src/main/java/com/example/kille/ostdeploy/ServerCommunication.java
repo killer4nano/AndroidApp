@@ -145,7 +145,6 @@ public class ServerCommunication {
                 }
             }
         }catch(Exception e) {
-            getAvailableTasks();
             Log.e("TEST",e.getMessage());
         }
     }
