@@ -135,6 +135,8 @@ public class Main2Activity extends AppCompatActivity {
             if (serverCommunication.getCurrentTask().getSos()) {
                 setButtonColor("FF0000");
             }
+        }else {
+            setButtonColor("00FF00");
         }
 
     }

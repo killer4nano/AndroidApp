@@ -166,6 +166,7 @@ public class ServerCommunication {
                 }
                 if (inLine.contains("yes")) {
                     currentTask.setSos(true);
+                    act.setButtonColor("FF0000");
                 }
             }
         }catch(Exception e) {
@@ -208,15 +209,16 @@ public class ServerCommunication {
                     }
                     currentTask = new Tasks(Integer.parseInt(jObject.get("id").toString()), sos, jObject.get("taskName").toString(), jObject.get("tech").toString(), completed, jObject.get("taskDescription").toString(), jObject.get("notes").toString());
                     onJob = true;
+                    act.setButtonColor("ffffbb33");
                     isSos(currentTask.getId());
 
                 }else {
                     currentTask = null;
                     onJob = false;
+                    act.setButtonColor("00FF00");
                 }
             }
         }catch(Exception e) {
-            getAvailableTasks();
             Log.e("TEST",e.getMessage());
         }
     }
@@ -312,7 +314,6 @@ public class ServerCommunication {
                 }
                 currentTask = null;
                 onJob = false;
-                act.setButtonColor("03FF13");
             }
         } catch (Exception e) {
             Log.e("TEST", e.getMessage());

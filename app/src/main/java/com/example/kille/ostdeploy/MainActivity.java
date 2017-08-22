@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText username;
@@ -25,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Login");
         setContentView(R.layout.activity_main);
         setTitle("Login");
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -35,7 +36,12 @@ public class MainActivity extends AppCompatActivity {
         if (ServerCommunication.isLoggedIn()) {
             startActivity(new Intent(MainActivity.this, Main2Activity.class));
         }
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("tasks");
     }
 
 
